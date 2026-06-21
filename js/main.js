@@ -13,35 +13,23 @@
   }
 
   audio.volume = 0.55;
-  // resume from where the gate page left off, so the song feels continuous
-  // across the navigation instead of restarting at 0:00
-  const savedTime = parseFloat(sessionStorage.getItem('bgm-time'));
-  if (!isNaN(savedTime) && savedTime > 0) audio.currentTime = savedTime;
-  // honor whatever mute state the guest chose on the gate page (on by default)
-  audio.muted = sessionStorage.getItem('bgm-muted') === 'true';
 
-  // The guest just tapped "unlock" on the gate page — a genuine, very recent
-  // gesture — so we try to carry that momentum into autoplay here. Browsers
-  // may still block it (each page load is its own autoplay decision); if so,
-  // fall back to muted autoplay (always allowed) so the toggle's next tap
-  // can unmute instantly instead of leaving the track fully stopped.
-  if (sessionStorage.getItem('bgm-intent') === 'on'){
-    audio.play().then(sync).catch(() => {
-      audio.muted = true;
-      audio.play().catch(() => {});
-      sync();
-    });
-  } else {
+  // Try to autoplay with sound on page load. Browsers may block this since
+  // there's no preceding gesture on this exact page load — if so, fall back
+  // to muted autoplay (always allowed) so the toggle's next tap can unmute
+  // instantly instead of leaving the track fully stopped.
+  audio.play().then(sync).catch(() => {
+    audio.muted = true;
+    audio.play().catch(() => {});
     sync();
-  }
+  });
 
   toggle.addEventListener('click', () => {
     if (audio.paused){
       audio.muted = false;
-      audio.play().then(() => { sessionStorage.setItem('bgm-muted', 'false'); sync(); }).catch(sync);
+      audio.play().then(sync).catch(sync);
     } else {
       audio.muted = !audio.muted;
-      sessionStorage.setItem('bgm-muted', String(audio.muted));
       sync();
     }
   });

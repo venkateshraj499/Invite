@@ -61,12 +61,24 @@ section{position:relative;}
   display:flex;
   align-items:flex-start;
   justify-content:center;
+  background:var(--charcoal);
+}
+.hero__photo-wrap{
+  position:absolute; inset:0;
+  overflow:hidden;
+  opacity:0;
+  transform:translateY(60px);
+  animation:heroPhotoIn 0.9s cubic-bezier(.22,.61,.36,1) forwards 1.4s;
 }
 .hero__photo{
   position:absolute; inset:0;
   background-size:cover;
   background-position:center 10%;
-  animation:kenburns 14s ease-out forwards;
+  animation:kenburns 14s ease-out forwards 1.4s;
+}
+@keyframes heroPhotoIn{
+  from{ opacity:0; transform:translateY(60px); }
+  to{ opacity:1; transform:translateY(0); }
 }
 @keyframes kenburns{
   from{ transform:scale(1); }
