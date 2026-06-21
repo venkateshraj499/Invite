@@ -61,7 +61,7 @@ section{position:relative;}
   display:flex;
   align-items:flex-start;
   justify-content:center;
-  background:var(--charcoal);
+  background:#000000;
 }
 .hero__photo-wrap{
   position:absolute; inset:0;
@@ -595,6 +595,15 @@ section{position:relative;}
 .lightbox__close{ top:24px; right:24px; }
 .lightbox__prev{ left:24px; top:50%; transform:translateY(-50%); }
 .lightbox__next{ right:24px; top:50%; transform:translateY(-50%); }
+
+/* ===== welcome confetti — built with WAAPI in main.js, not a library ===== */
+.confetti-piece{
+  position:fixed;
+  z-index:60;
+  border-radius:1px;
+  pointer-events:none;
+  will-change:transform, opacity;
+}
 
 /* ===== background music toggle ===== */
 .audio-toggle{

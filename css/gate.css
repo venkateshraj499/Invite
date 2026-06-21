@@ -108,34 +108,9 @@ body{
   50%{ opacity:1; }
 }
 
-/* iris-open transition: a dark circle expands from wherever the guest taps */
-.gate__iris{
-  position:fixed;
-  z-index:5;
-  left:0; top:0;
-  width:10px; height:10px;
-  margin-left:-5px; margin-top:-5px;
-  border-radius:50%;
-  background:#000000;
-  transform:scale(0);
-  transition:transform 0.45s ease-out;
-  pointer-events:none;
-}
-.gate.is-unlocking .gate__iris{
-  transform:scale(260);
-}
 .gate.is-unlocking .gate__content{
-  transition:opacity 0.4s ease;
+  transition:opacity 0.15s ease;
   opacity:0;
-}
-
-/* confetti burst on unlock — built with WAAPI in gate.js, not a library */
-.confetti-piece{
-  position:fixed;
-  z-index:6;
-  border-radius:1px;
-  pointer-events:none;
-  will-change:transform, opacity;
 }
 
 @media (prefers-reduced-motion: reduce){
