@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Venkatesh &amp; Brindha — 22 &amp; 23 August 2026</title>
+<meta name="description" content="Venkatesh and Brindha invite you to their wedding — Reception on 22 August and Muhurtham on 23 August 2026, at Shri Kalpana Mahal, Puducherry." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ============ 1. ENTRY ============ -->
+  <section class="hero" id="hero">
+    <div class="hero__photo" style="background-image:url('images/optimized/hero.jpg')"></div>
+    <div class="hero__scrim"></div>
+    <div class="hero__content">
+      <p class="hero__names" aria-label="Venkatesh and Brindha">
+        <span class="word">Venkatesh</span><span class="hero__amp">&amp;</span><span class="word">Brindha</span>
+      </p>
+      <p class="hero__date">22 &amp; 23 August 2026</p>
+    </div>
+    <a href="#invite" class="hero__scroll" aria-label="Scroll to invitation">
+      <span class="hero__scroll-line"></span>
+      <span class="hero__scroll-label">Scroll</span>
+      <svg class="hero__scroll-chevron" viewBox="0 0 20 10" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M2 2l8 6 8-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+  </section>
+
+  <!-- ============ 2. INVITATION CARD (ribbon reveal) ============ -->
+  <section class="invite-section" id="invite">
+    <div class="invite-card" id="inviteCard">
+      <div class="bouquet tr" style="background-image:url('images/graphics/corner-floral.png')"></div>
+      <div class="bouquet bl" style="background-image:url('images/graphics/corner-floral.png')"></div>
+
+      <div class="invite-card__content">
+        <p class="eyebrow">Together with our families</p>
+        <h1 class="invite-names">
+          Venkatesh
+          <span class="amp">&amp;</span>
+          Brindha
+        </h1>
+        <img class="flourish" src="images/graphics/flourish.png" alt="" />
+        <p class="invite-line">We invite you to celebrate our wedding</p>
+
+        <div class="date-hero">
+          <span class="month">August</span>
+          <div class="day-num">22<span class="sep">&amp;</span>23</div>
+          <span class="year">2026</span>
+        </div>
+
+        <div class="events">
+          <div class="event-row">
+            <span class="label">Reception</span>
+            <span class="meta">Sat 22nd &middot; 6:30 PM onwards</span>
+          </div>
+          <div class="event-row">
+            <span class="label">Muhurtham</span>
+            <span class="meta">Sun 23rd &middot; 7:30 &ndash; 9:00 AM</span>
+          </div>
+        </div>
+        <p class="venue">Shri Kalpana Mahal, Puducherry</p>
+      </div>
+
+      <div class="frost"></div>
+
+      <div class="ribbon-wrap left" style="clip-path:inset(0 50% 0 0); background-image:url('images/graphics/ribbon-seal.png')"></div>
+      <div class="ribbon-wrap right" style="clip-path:inset(0 0 0 50%); background-image:url('images/graphics/ribbon-seal.png')"></div>
+
+      <button class="tap-hint" id="tapHint" type="button" aria-label="Untie the ribbon to reveal the invitation">
+        Pull the ribbon &#8627;
+      </button>
+    </div>
+
+    <div class="countdown" id="countdown" aria-live="polite">
+      <div class="countdown__unit"><span class="countdown__num" id="cdDays">00</span><span class="countdown__label">Days</span></div>
+      <div class="countdown__unit"><span class="countdown__num" id="cdHours">00</span><span class="countdown__label">Hours</span></div>
+      <div class="countdown__unit"><span class="countdown__num" id="cdMins">00</span><span class="countdown__label">Min</span></div>
+      <div class="countdown__unit"><span class="countdown__num" id="cdSecs">00</span><span class="countdown__label">Sec</span></div>
+    </div>
+  </section>
+
+  <!-- ============ 3. ITINERARY ============ -->
+  <section class="itinerary" id="itinerary">
+    <p class="section-eyebrow reveal">The Itinerary</p>
+    <h2 class="section-heading reveal">Two days, one beginning</h2>
+
+    <div class="itinerary__events">
+      <svg class="itinerary__line" viewBox="0 0 4 100" preserveAspectRatio="none" aria-hidden="true">
+        <line x1="2" y1="0" x2="2" y2="100" />
+      </svg>
+
+      <article class="itinerary__card reveal-left">
+        <div class="itinerary__photo" style="background-image:url('images/optimized/itinerary-reception.jpg')"></div>
+        <p class="label">Reception</p>
+        <p class="itinerary__date">22 August 2026 &middot; Saturday</p>
+        <p class="itinerary__time">6:30 PM onwards</p>
+      </article>
+
+      <article class="itinerary__card reveal-right">
+        <div class="itinerary__photo" style="background-image:url('images/optimized/itinerary-muhurtham.jpg')"></div>
+        <p class="label">Muhurtham</p>
+        <p class="itinerary__date">23 August 2026 &middot; Sunday</p>
+        <p class="itinerary__time">7:30 &ndash; 9:00 AM</p>
+      </article>
+    </div>
+
+    <div class="itinerary__venue reveal">
+      <p class="itinerary__venue-name">Shri Kalpana Mahal</p>
+      <p class="itinerary__venue-address">Pethuchettypet, Lawspet, Puducherry, 605008</p>
+      <div class="itinerary__map">
+        <iframe
+          src="https://maps.google.com/maps?ll=11.953766,79.820266&z=15&t=m&output=embed"
+          width="100%" height="100%" style="border:0;" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Shri Kalpana Mahal location"></iframe>
+      </div>
+      <a class="itinerary__map-link" href="https://www.google.com/maps?ll=11.953766,79.820266&z=15&t=m&hl=en-GB&gl=US&mapclient=embed&cid=13458931660469966044" target="_blank" rel="noopener">View on Google Maps &rarr;</a>
+    </div>
+  </section>
+
+  <!-- ============ 4. GALLERY ============ -->
+  <section class="gallery" id="gallery">
+    <p class="section-eyebrow reveal">In Frame</p>
+    <h2 class="section-heading reveal">A few of our favourites</h2>
+    <div class="gallery__grid" id="galleryGrid"></div>
+  </section>
+
+  <!-- ============ 5. A FEW WORDS ============ -->
+  <section class="fewwords">
+    <div class="fewwords__photo reveal-left" style="background-image:url('images/optimized/fewwords.jpg')"></div>
+    <div class="fewwords__text reveal-right">
+      <p class="fewwords__quote">
+        Two families, one beginning. We can&rsquo;t quite believe the day is almost here &mdash;
+        and we can&rsquo;t imagine it without the people who shaped our story along the way.
+        Come hungry, come dancing, come ready to celebrate with us.
+      </p>
+      <p class="fewwords__sign">&mdash; Venkatesh &amp; Brindha</p>
+    </div>
+  </section>
+
+  <!-- ============ 6. CLOSE ============ -->
+  <section class="close" id="close">
+    <div class="close__photo" style="background-image:url('images/optimized/close.jpg')"></div>
+    <div class="close__scrim"></div>
+    <div class="close__content reveal">
+      <p class="close__monogram">V &middot; B</p>
+      <p class="close__date">22 &amp; 23 August 2026</p>
+    </div>
+  </section>
+
+  <!-- lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true">
+    <button class="lightbox__close" id="lightboxClose" aria-label="Close">&times;</button>
+    <button class="lightbox__nav lightbox__prev" id="lightboxPrev" aria-label="Previous photo">&larr;</button>
+    <img class="lightbox__img" id="lightboxImg" src="" alt="" />
+    <button class="lightbox__nav lightbox__next" id="lightboxNext" aria-label="Next photo">&rarr;</button>
+  </div>
+
+  <!-- background music -->
+  <audio id="bgm" loop preload="auto">
+    <source src="audio/anbil-avan.mp3" type="audio/mpeg">
+  </audio>
+  <button class="audio-toggle" id="audioToggle" aria-label="Play background music" aria-pressed="false">
+    <svg class="audio-toggle__icon audio-toggle__icon--on" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M4 9v6h3.5L13 19V5L7.5 9H4z" fill="currentColor"/>
+      <path d="M16.2 8.5a4.8 4.8 0 0 1 0 7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+      <path d="M18.4 6.2a8 8 0 0 1 0 11.6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" opacity="0.6"/>
+    </svg>
+    <svg class="audio-toggle__icon audio-toggle__icon--off" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M4 9v6h3.5L13 19V5L7.5 9H4z" fill="currentColor"/>
+      <path d="M16 9l5 5M21 9l-5 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+    </svg>
+  </button>
+
+  <script src="data/photos.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

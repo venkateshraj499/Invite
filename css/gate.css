@@ -1,0 +1,181 @@
+:root{
+  --ivory:#F7F3EC;
+  --charcoal:#262220;
+  --bronze:#A9824C;
+}
+*{box-sizing:border-box; margin:0; padding:0;}
+html, body{ height:100%; overflow:hidden; }
+body{
+  font-family:'Inter',sans-serif;
+  background:#0c0a09;
+}
+
+.gate{
+  position:relative;
+  width:100%;
+  height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  cursor:pointer;
+}
+.gate__photo{
+  position:absolute; inset:0;
+  background-image:url('../images/optimized/landing.jpg');
+  background-size:cover;
+  background-position:center 46%;
+  filter:brightness(0.62) blur(1.5px);
+}
+.gate__vignette{
+  position:absolute; inset:0;
+  background:rgba(10,8,7,0.32);
+}
+.gate__topscrim{
+  position:absolute;
+  top:0; left:0; right:0;
+  height:32%;
+  background:linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0));
+}
+
+.gate__invite{
+  position:absolute;
+  top:8%;
+  left:0; right:0;
+  z-index:1;
+  text-align:center;
+  color:var(--ivory);
+  opacity:0;
+  animation:fadeIn 1.4s ease forwards 0.2s;
+  pointer-events:none;
+}
+.gate__invite-eyebrow{
+  font-family:'Inter',sans-serif;
+  font-size:11px;
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  opacity:0.8;
+  margin-bottom:10px;
+}
+.gate__invite-names{
+  font-family:'Fraunces', serif;
+  font-style:italic;
+  font-weight:500;
+  font-size:clamp(24px, 4vw, 34px);
+}
+
+.gate__content{
+  position:relative;
+  z-index:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  color:var(--ivory);
+  opacity:0;
+  transform:translateY(23vh);
+  animation:fadeIn 1.4s ease forwards 0.3s;
+  text-shadow:0 1px 18px rgba(0,0,0,0.9), 0 1px 4px rgba(0,0,0,0.7);
+  pointer-events:none; /* the tap target is the whole gate, not this text */
+}
+@keyframes fadeIn{ to{ opacity:1; } }
+
+.gate__lock{
+  width:30px; height:30px;
+  color:var(--ivory);
+  margin-bottom:14px;
+  filter:drop-shadow(0 1px 4px rgba(0,0,0,0.95)) drop-shadow(0 0 14px rgba(0,0,0,0.9));
+  animation:pulseCue 2.6s ease-in-out infinite 1.2s;
+}
+
+.gate__cue{
+  font-family:'Inter',sans-serif;
+  font-size:12px;
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  animation:pulseCue 2.6s ease-in-out infinite 1.2s;
+}
+
+.gate__date{
+  margin-top:22px;
+  font-size:11px;
+  letter-spacing:0.26em;
+  text-transform:uppercase;
+  opacity:0.75;
+}
+
+.gate__hint{
+  margin-top:14px;
+  font-size:10px;
+  letter-spacing:0.12em;
+  font-style:italic;
+  font-family:'Fraunces', serif;
+  opacity:0.55;
+}
+
+@keyframes pulseCue{
+  0%, 100%{ opacity:0.55; }
+  50%{ opacity:1; }
+}
+
+/* iris-open transition: a dark circle expands from wherever the guest taps */
+.gate__iris{
+  position:fixed;
+  z-index:5;
+  left:0; top:0;
+  width:10px; height:10px;
+  margin-left:-5px; margin-top:-5px;
+  border-radius:50%;
+  background:#15110f;
+  transform:scale(0);
+  transition:transform 1s cubic-bezier(.5,0,.2,1);
+  pointer-events:none;
+}
+.gate.is-unlocking .gate__iris{
+  transform:scale(260);
+}
+.gate.is-unlocking .gate__content{
+  transition:opacity 0.4s ease;
+  opacity:0;
+}
+.gate.is-unlocking .gate__mute{
+  transition:opacity 0.3s ease;
+  opacity:0;
+}
+
+.gate__mute{
+  position:fixed;
+  z-index:7;
+  top:20px; right:20px;
+  width:42px; height:42px;
+  border-radius:50%;
+  border:1px solid rgba(247,243,236,0.4);
+  background:rgba(12,10,9,0.45);
+  backdrop-filter:blur(6px);
+  color:var(--ivory);
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 6px 18px rgba(0,0,0,0.3);
+}
+.gate__mute-icon{ width:18px; height:18px; }
+.gate__mute-icon--off{ display:none; }
+.gate__mute.is-muted .gate__mute-icon--on{ display:none; }
+.gate__mute.is-muted .gate__mute-icon--off{ display:block; }
+@media (max-width: 480px){
+  .gate__mute{ top:16px; right:16px; width:38px; height:38px; }
+}
+
+/* confetti burst on unlock — built with WAAPI in gate.js, not a library */
+.confetti-piece{
+  position:fixed;
+  z-index:6;
+  border-radius:1px;
+  pointer-events:none;
+  will-change:transform, opacity;
+}
+
+@media (prefers-reduced-motion: reduce){
+  .gate__cue{ animation:none; }
+  .gate__content{ animation:none; opacity:1; }
+}
