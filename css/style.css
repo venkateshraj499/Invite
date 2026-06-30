@@ -55,7 +55,8 @@ section{position:relative;}
 
 /* ===== 1. HERO ===== */
 .hero{
-  height:100vh;
+  height:100vh; /* fallback for browsers without svh support */
+  height:100svh; /* accounts for mobile browser chrome so bottom content stays visible */
   min-height:560px;
   overflow:hidden;
   display:flex;
@@ -99,7 +100,15 @@ section{position:relative;}
   z-index:1;
   text-align:center;
   color:var(--ivory);
-  padding-top:48px;
+  padding-top:32px;
+}
+.hero__eyebrow{
+  font-size:11px;
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+  opacity:0;
+  margin-bottom:8px;
+  animation:wordIn 0.9s ease forwards 0.1s;
 }
 .hero__names{
   font-family:'Fraunces', serif;
@@ -139,8 +148,7 @@ section{position:relative;}
 }
 .hero__scroll{
   position:absolute;
-  bottom:30px; left:50%;
-  transform:translateX(-50%);
+  bottom:30px; left:0; right:0;
   z-index:1;
   color:var(--ivory);
   text-decoration:none;
@@ -168,11 +176,11 @@ section{position:relative;}
   opacity:0.85;
 }
 @keyframes bob{
-  0%,100%{ transform:translate(-50%, 0); }
-  50%{ transform:translate(-50%, 8px); }
+  0%,100%{ transform:translateY(0); }
+  50%{ transform:translateY(8px); }
 }
 @media (max-width: 480px){
-  .hero__scroll{ bottom:22px; }
+  .hero__scroll{ bottom:20px; left:0; right:0; }
   .hero__scroll-line{ height:30px; }
 }
 
@@ -377,6 +385,137 @@ section{position:relative;}
   text-transform:uppercase;
   color:var(--charcoal);
   opacity:0.55;
+}
+
+/* ===== 2.5 BRIDE & GROOM ===== */
+.couple{
+  padding:100px 20px 110px;
+  max-width:880px;
+  margin:0 auto;
+}
+.couple__grid{
+  margin-top:48px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:48px;
+}
+.couple__card{
+  text-align:center;
+}
+.couple__photo{
+  width:100%;
+  aspect-ratio:3/4;
+  border-radius:16px;
+  overflow:hidden;
+  margin-bottom:22px;
+  box-shadow:0 24px 48px -28px rgba(38,34,32,0.35);
+}
+.couple__photo img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center 18%;
+  display:block;
+}
+.couple__name{
+  font-family:'Fraunces', serif;
+  font-style:italic;
+  font-weight:500;
+  font-size:clamp(26px, 3.6vw, 34px);
+  color:var(--charcoal);
+}
+.couple__role{
+  margin-top:4px;
+  font-size:11px;
+  letter-spacing:0.26em;
+  text-transform:uppercase;
+  color:var(--bronze);
+  font-weight:600;
+}
+@media (max-width: 640px){
+  .couple{ padding:80px 16px 90px; }
+  .couple__grid{ grid-template-columns:1fr; gap:40px; max-width:340px; margin-left:auto; margin-right:auto; }
+}
+
+/* ===== 2.7 PRE-WEDDING STORY ===== */
+.story{
+  padding:20px 0 110px;
+  background:var(--stage);
+}
+.story > .section-eyebrow{ padding:0 20px; margin-top:80px; }
+.story > .section-heading{ padding:0 20px; }
+
+.story__chapter{
+  margin-top:64px;
+}
+.story__intro{
+  max-width:560px;
+  margin:0 auto 28px;
+  padding:0 24px;
+  text-align:center;
+}
+.story__num{
+  font-family:'Fraunces', serif;
+  font-style:italic;
+  font-size:14px;
+  color:var(--bronze);
+  opacity:0.8;
+  margin-bottom:6px;
+}
+.story__title{
+  font-family:'Fraunces', serif;
+  font-style:italic;
+  font-weight:500;
+  font-size:clamp(24px, 3.4vw, 30px);
+  color:var(--charcoal);
+  margin-bottom:12px;
+}
+.story__text{
+  font-size:15px;
+  line-height:1.65;
+  color:var(--charcoal);
+  opacity:0.75;
+}
+
+.story__filmstrip{
+  display:flex;
+  gap:16px;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+  padding:8px 24px 14px;
+  scrollbar-width:none;
+}
+.story__filmstrip::-webkit-scrollbar{ display:none; }
+.story__photo{
+  flex:0 0 auto;
+  width:min(74vw, 300px);
+  aspect-ratio:3/4;
+  border-radius:16px;
+  overflow:hidden;
+  scroll-snap-align:start;
+  box-shadow:0 20px 40px -24px rgba(38,34,32,0.35);
+  opacity:0;
+  transform:translateY(18px) scale(0.97);
+  transition:opacity 0.6s ease, transform 0.6s ease;
+}
+.story__photo.is-visible{
+  opacity:1;
+  transform:translateY(0) scale(1);
+}
+.story__photo img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:var(--focal, 50% 35%);
+  display:block;
+}
+
+@media (min-width: 860px){
+  .story__photo{ width:min(26vw, 320px); }
+}
+@media (prefers-reduced-motion: reduce){
+  .story__photo{ transition:none; opacity:1; transform:none; }
 }
 
 /* ===== 3. ITINERARY ===== */

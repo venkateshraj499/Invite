@@ -159,6 +159,22 @@ DESKTOP                                       MOBILE
 ```
 Background: **DS_00692** (the circular backlit silhouette — already monochrome/graphic, so bold serif numerals sit on it cleanly without competing). Inset detail card: **DS_00702** (macro of the rings on henna palm) — floats as a small accent on desktop, stacks full-width below the text on mobile.
 
+### 4.2.5 — The Bride & Groom *(post-launch addition)*
+
+Added right after the ribbon-reveal card, once a second batch of photos (`assets/pre-wedding-shoot/`) came in. A simple two-up section: solo portrait + first name + role label ("The Bride" / "The Groom") for each, in a rounded 3:4 frame, Fraunces italic name beneath. Stacks to one column on mobile.
+
+**Source photos:** `assets/pre-wedding-shoot/solo/Copy of BAGHAVAN (284).JPG` (bride) and `assets/pre-wedding-shoot/solo/DS_00782 copy.jpg` (groom) → exported as `images/optimized/bride-solo.jpg` and `images/optimized/groom-solo.jpg`.
+
+The bride's source photo had no EXIF orientation tag and was shot at roughly a 68° dutch angle (not a clean 90° rotation) — sips' angle-by-trial approach kept either clipping her face or leaving black canvas corners after rotation, so the fix was a proper rotation-geometry calculation (Pillow, `rotate(expand=True)` + computing the rotated content polygon precisely) to find a crop rectangle guaranteed to avoid the black corners while keeping her face well-framed. The groom's photo needed only a light crop to tighten the framing and trim chair clutter at the bottom.
+
+### 4.2.7 — Our Pre-Wedding Story *(post-launch addition)*
+
+Added after Bride & Groom, once a full pre-wedding shoot came in across three locations: `assets/pre-wedding-shoot/temple/` (9 photos), `indoor/` (11, a heritage Chettinad mansion), `outdoor/` (10, forest + beach). Rather than dumping all 30 into the existing "favourites" grid, this became its own section, structured as three narrative chapters — **Where It Began** (temple), **At Home With Each Other** (heritage home), **Into the Open** (beach/forest) — each with a short caption setting the mood, followed by a horizontally swipeable filmstrip of 5 curated photos (scroll-snap, native touch scroll, peek-next-photo hint). Curated 15 of the 30 photos total, dropping near-duplicate frames per location.
+
+**Why a filmstrip, not a grid:** explicitly mobile-first per your ask — large, immersive portrait photos one can swipe through read as a photo-essay rather than a cramped thumbnail wall, and it stays visually distinct from the existing masonry gallery further down the page. Photos stagger into view (100ms apart) via `IntersectionObserver` as each filmstrip scrolls into the viewport.
+
+**EXIF handling:** unlike the bride's solo photo, this whole batch *does* carry EXIF orientation tags (mostly value `8`, a few `1`) — so correcting them was a single `ImageOps.exif_transpose()` pass in Pillow rather than the manual rotation-geometry work the solo photo needed. Each exported photo also carries a per-image `--focal` CSS custom property (same technique as the gallery) so `object-fit:cover` crops toward faces rather than the geometric center.
+
 ### 4.3 — The Itinerary
 
 ```

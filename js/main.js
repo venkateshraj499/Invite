@@ -151,6 +151,27 @@
   targets.forEach((t) => io.observe(t));
 })();
 
+// ===== Pre-wedding story: stagger photos into view per filmstrip =====
+(function storyFilmstrips(){
+  const filmstrips = document.querySelectorAll('[data-filmstrip]');
+  if (!filmstrips.length) return;
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting){
+        entry.target.classList.add('is-visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.25 });
+  filmstrips.forEach((strip) => {
+    const photos = strip.querySelectorAll('.story__photo');
+    photos.forEach((photo, i) => {
+      photo.style.transitionDelay = `${(i % 5) * 100}ms`;
+      io.observe(photo);
+    });
+  });
+})();
+
 // ===== Gallery: render from manifest + lightbox =====
 (function gallery(){
   const grid = document.getElementById('galleryGrid');
