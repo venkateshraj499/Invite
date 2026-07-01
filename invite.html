@@ -12,6 +12,30 @@
 </head>
 <body>
 
+  <!-- Gate overlay: two ornate panels that slide open to reveal the hero -->
+  <div class="go" id="gateOverlay" aria-hidden="true">
+    <div class="go__panel go__panel--l">
+      <div class="go__panel-inner"></div>
+      <span class="go__mono">V</span>
+    </div>
+    <div class="go__panel go__panel--r">
+      <div class="go__panel-inner"></div>
+      <span class="go__mono">B</span>
+    </div>
+    <div class="go__seam"></div>
+    <div class="go__lock" id="goLock">
+      <!-- viewBox padded at top so shackle doesn't clip during lift animation -->
+      <svg viewBox="0 -12 48 60" fill="none" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+        <g class="go__shackle">
+          <path d="M16 21v-6a8 8 0 0 1 16 0v6" stroke="currentColor" stroke-width="1.6"/>
+        </g>
+        <rect x="11" y="21" width="26" height="20" rx="3" stroke="currentColor" stroke-width="1.6"/>
+        <circle cx="24" cy="30" r="2.4" stroke="currentColor" stroke-width="1.4"/>
+        <line x1="24" y1="32.4" x2="24" y2="36" stroke="currentColor" stroke-width="1.4"/>
+      </svg>
+    </div>
+  </div>
+
   <!-- ============ 1. ENTRY ============ -->
   <section class="hero" id="hero">
     <div class="hero__photo-wrap">
@@ -87,6 +111,44 @@
     </div>
   </section>
 
+  <!-- ============ 3. ITINERARY ============ -->
+  <section class="itinerary" id="itinerary">
+    <p class="section-eyebrow reveal">The Itinerary</p>
+    <h2 class="section-heading reveal">Two days, one beginning</h2>
+
+    <div class="itinerary__events">
+      <svg class="itinerary__line" viewBox="0 0 4 100" preserveAspectRatio="none" aria-hidden="true">
+        <line x1="2" y1="0" x2="2" y2="100" />
+      </svg>
+
+      <article class="itinerary__card reveal-left">
+        <div class="itinerary__photo" style="background-image:url('images/optimized/itinerary-reception.jpg')"></div>
+        <p class="label">Reception</p>
+        <p class="itinerary__date">22 August 2026 &middot; Saturday</p>
+        <p class="itinerary__time">6:30 PM onwards</p>
+      </article>
+
+      <article class="itinerary__card reveal-right">
+        <div class="itinerary__photo" style="background-image:url('images/optimized/itinerary-muhurtham.jpg')"></div>
+        <p class="label">Muhurtham</p>
+        <p class="itinerary__date">23 August 2026 &middot; Sunday</p>
+        <p class="itinerary__time">7:30 &ndash; 9:00 AM</p>
+      </article>
+    </div>
+
+    <div class="itinerary__venue reveal">
+      <img class="itinerary__venue-photo" src="images/optimized/venue.jpg" alt="Shri Kalpana Mahal lit up at night" loading="lazy" />
+      <p class="itinerary__venue-name">Shri Kalpana Mahal</p>
+      <p class="itinerary__venue-address">Pethuchettypet, Lawspet, Puducherry, 605008</p>
+      <a class="itinerary__map-btn" href="https://www.google.com/maps?ll=11.953766,79.820266&z=15&t=m&hl=en-GB&gl=US&mapclient=embed&cid=13458931660469966044" target="_blank" rel="noopener">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z" fill="currentColor"/>
+        </svg>
+        Get Directions
+      </a>
+    </div>
+  </section>
+
   <!-- ============ 2.5 BRIDE & GROOM ============ -->
   <section class="couple" id="couple">
     <p class="section-eyebrow reveal">The Bride &amp; Groom</p>
@@ -140,6 +202,7 @@
       <div class="story__filmstrip" data-filmstrip>
         <div class="story__photo"><img src="images/optimized/story-indoor-01.jpg" alt="Venkatesh and Brindha sharing a close conversation in a heritage courtyard" loading="lazy" style="--focal:50% 20%"></div>
         <div class="story__photo"><img src="images/optimized/story-indoor-02.jpg" alt="Brindha and Venkatesh on a traditional wooden swing" loading="lazy" style="--focal:50% 25%"></div>
+        <div class="story__photo"><img src="images/optimized/story-indoor-06.jpg" alt="Both together on the oonjal swing, carved wooden wall art behind them" loading="lazy" style="--focal:50% 30%"></div>
         <div class="story__photo"><img src="images/optimized/story-indoor-03.jpg" alt="Brindha mid-twirl, saree flowing, playing hopscotch on the courtyard floor" loading="lazy" style="--focal:50% 30%"></div>
         <div class="story__photo"><img src="images/optimized/story-indoor-04.jpg" alt="A warm, close moment on the swing inside the heritage home" loading="lazy" style="--focal:50% 38%"></div>
         <div class="story__photo"><img src="images/optimized/story-indoor-05.jpg" alt="Venkatesh and Brindha in the colourful pillared courtyard" loading="lazy" style="--focal:50% 25%"></div>
@@ -156,48 +219,10 @@
         <div class="story__photo"><img src="images/optimized/story-outdoor-01.jpg" alt="Venkatesh and Brindha laughing together on a fallen log in the woods" loading="lazy" style="--focal:50% 35%"></div>
         <div class="story__photo"><img src="images/optimized/story-outdoor-02.jpg" alt="A quiet portrait leaning against a tree in the forest" loading="lazy" style="--focal:50% 30%"></div>
         <div class="story__photo"><img src="images/optimized/story-outdoor-03.jpg" alt="Brindha and Venkatesh on the beach at golden hour, wind in her hair" loading="lazy" style="--focal:50% 30%"></div>
+        <div class="story__photo"><img src="images/optimized/story-outdoor-06.jpg" alt="Venkatesh and Brindha together on the beach, ocean behind them" loading="lazy" style="--focal:50% 30%"></div>
         <div class="story__photo"><img src="images/optimized/story-outdoor-04.jpg" alt="Venkatesh and Brindha running together on the sand" loading="lazy" style="--focal:50% 35%"></div>
         <div class="story__photo"><img src="images/optimized/story-outdoor-05.jpg" alt="Two sets of footprints trailing down an empty beach" loading="lazy" style="--focal:50% 55%"></div>
       </div>
-    </div>
-  </section>
-
-  <!-- ============ 3. ITINERARY ============ -->
-  <section class="itinerary" id="itinerary">
-    <p class="section-eyebrow reveal">The Itinerary</p>
-    <h2 class="section-heading reveal">Two days, one beginning</h2>
-
-    <div class="itinerary__events">
-      <svg class="itinerary__line" viewBox="0 0 4 100" preserveAspectRatio="none" aria-hidden="true">
-        <line x1="2" y1="0" x2="2" y2="100" />
-      </svg>
-
-      <article class="itinerary__card reveal-left">
-        <div class="itinerary__photo" style="background-image:url('images/optimized/itinerary-reception.jpg')"></div>
-        <p class="label">Reception</p>
-        <p class="itinerary__date">22 August 2026 &middot; Saturday</p>
-        <p class="itinerary__time">6:30 PM onwards</p>
-      </article>
-
-      <article class="itinerary__card reveal-right">
-        <div class="itinerary__photo" style="background-image:url('images/optimized/itinerary-muhurtham.jpg')"></div>
-        <p class="label">Muhurtham</p>
-        <p class="itinerary__date">23 August 2026 &middot; Sunday</p>
-        <p class="itinerary__time">7:30 &ndash; 9:00 AM</p>
-      </article>
-    </div>
-
-    <div class="itinerary__venue reveal">
-      <p class="itinerary__venue-name">Shri Kalpana Mahal</p>
-      <p class="itinerary__venue-address">Pethuchettypet, Lawspet, Puducherry, 605008</p>
-      <div class="itinerary__map">
-        <iframe
-          src="https://maps.google.com/maps?ll=11.953766,79.820266&z=15&t=m&output=embed"
-          width="100%" height="100%" style="border:0;" loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          title="Shri Kalpana Mahal location"></iframe>
-      </div>
-      <a class="itinerary__map-link" href="https://www.google.com/maps?ll=11.953766,79.820266&z=15&t=m&hl=en-GB&gl=US&mapclient=embed&cid=13458931660469966044" target="_blank" rel="noopener">View on Google Maps &rarr;</a>
     </div>
   </section>
 

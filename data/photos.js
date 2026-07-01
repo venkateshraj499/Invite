@@ -5,8 +5,8 @@ window.PHOTOS = {
   // reception/muhurtham/fewWords were swapped from engagement photos to the pre-wedding
   // shoot (temple/indoor/outdoor) so the page doesn't lean so heavily on one shoot's look.
   itinerary: {
-    reception: { file: "itinerary-reception.jpg", alt: "Venkatesh and Brindha at the temple, pink and gold attire" },
-    muhurtham: { file: "itinerary-muhurtham.jpg", alt: "Venkatesh and Brindha together on a traditional swing" }
+    reception: { file: "itinerary-reception.jpg", alt: "Venkatesh and Brindha leaning against a tree in the forest, matching red outfits" },
+    muhurtham: { file: "itinerary-muhurtham.jpg", alt: "Venkatesh and Brindha at the temple, traditional pink and gold attire" }
   },
   fewWords: { file: "fewwords.jpg", alt: "Venkatesh and Brindha dancing together on the beach" },
   close: { file: "close.jpg", alt: "Henna-painted hands reading V and B" },
@@ -14,13 +14,11 @@ window.PHOTOS = {
   // portrait source -> tall/square) so object-fit:cover never has to crop a 90°-mismatched box.
   // focal sets object-position so faces stay in frame within whatever crop remains.
   gallery: [
-    { file: "gallery-01.jpg", alt: "Candid moment, hands clasped, floral arch backdrop", span: "wide", focal: "50% 45%" },
-    { file: "gallery-02.jpg", alt: "Confident formal portrait under a ballroom chandelier", span: "tall", focal: "50% 22%" },
-    { file: "gallery-04.jpg", alt: "Couple in silhouette, backlit circular frame", span: "square", focal: "50% 50%" },
-    { file: "gallery-05.jpg", alt: "Macro of engagement rings on henna-painted hand", span: "square", focal: "35% 50%" },
-    { file: "gallery-07.jpg", alt: "Eyes-closed embrace", span: "tall", focal: "50% 25%" },
-    { file: "gallery-11.jpg", alt: "Macro of henna palms raised, serene expression", span: "square", focal: "50% 40%" },
-    { file: "gallery-12.jpg", alt: "Wide couple portrait, floral double-ring arch", span: "wide", focal: "50% 35%" }
+    { file: "gallery-01.jpg", alt: "Ring exchange — groom presenting the ring, bokeh background", span: "wide", focal: "50% 40%" },
+    { file: "gallery-07.jpg", alt: "Back-to-back editorial portrait, both in full traditional attire", span: "tall", focal: "50% 10%" },
+    { file: "gallery-05.jpg", alt: "Formal engagement portrait, Brindha in full bridal jewellery", span: "square", focal: "50% 12%" },
+    { file: "gallery-08.jpg", alt: "Couple seated on gold bench, warm indoor lighting", span: "square", focal: "50% 32%" },
+    { file: "gallery-12.jpg", alt: "Couple at the engagement ceremony, floral arch backdrop", span: "wide", focal: "50% 30%" }
   ],
   reserved: [
     { file: "gallery-03.jpg", note: "playful candid — trimmed when gallery was tightened to 7" },

@@ -1,64 +1,95 @@
-// ===== Welcome confetti (plays once, right after unlocking on the gate page) =====
-(function welcomeConfetti(){
-  if (sessionStorage.getItem('just-unlocked') !== '1') return;
+// ===== Gate overlay: lock opens → charcoal panels slide apart → hero revealed =====
+(function gateAnimation(){
+  const overlay  = document.getElementById('gateOverlay');
+  if (!overlay) return;
+
+  const fromGate = sessionStorage.getItem('just-unlocked') === '1';
   sessionStorage.removeItem('just-unlocked');
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  // Jewel tones pulled from the wedding's own palette (gold sherwani, teal/maroon
-  // sarees) rather than generic primary-color party confetti.
-  const CONFETTI_COLORS = ['#C9A227', '#9B2335', '#1F5C5C', '#C2185B', '#2C5F9E', '#2E7D5B', '#F7F3EC', '#E08E2B'];
-
-  function rad(deg){ return deg * Math.PI / 180; }
-
-  function makePiece(x, y, angleMin, angleMax, distMin, distMax){
-    const el = document.createElement('span');
-    el.className = 'confetti-piece';
-    const isCircle = Math.random() < 0.4;
-    const size = 7 + Math.random() * 9;
-    el.style.width = size + 'px';
-    el.style.height = isCircle ? size + 'px' : (size * 0.4) + 'px';
-    el.style.borderRadius = isCircle ? '50%' : '1px';
-    el.style.background = CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)];
-    el.style.left = x + 'px';
-    el.style.top = y + 'px';
-    document.body.appendChild(el);
-
-    const angle = angleMin + Math.random() * (angleMax - angleMin);
-    const dist = distMin + Math.random() * (distMax - distMin);
-    const dx = Math.cos(angle) * dist;
-    const dy = Math.sin(angle) * dist;
-    const sway = (Math.random() - 0.5) * 90;
-    const fall = 260 + Math.random() * 240;
-    const rot = Math.random() * 900 - 450;
-    const duration = 2200 + Math.random() * 900;
-
-    const anim = el.animate([
-      { transform:'translate(-50%, -50%) rotate(0deg)', opacity:1, offset:0 },
-      { transform:`translate(${dx}px, ${dy}px) rotate(${rot * 0.4}deg)`, opacity:1, offset:0.3 },
-      { transform:`translate(${dx + sway}px, ${dy + fall * 0.55}px) rotate(${rot * 0.75}deg)`, opacity:1, offset:0.7 },
-      { transform:`translate(${dx + sway * 1.6}px, ${dy + fall}px) rotate(${rot}deg)`, opacity:0, offset:1 }
-    ], { duration, easing:'cubic-bezier(.18,.7,.3,1)', fill:'forwards' });
-    anim.onfinish = () => el.remove();
+  if (!fromGate){
+    overlay.remove();
+    return;
   }
 
-  function burst(){
-    const w = window.innerWidth, h = window.innerHeight;
-    const small = w < 480;
-    const x = w / 2, y = h * 0.42;
+  document.body.classList.add('gate-active');
 
-    const centerCount = small ? 60 : 110;
-    for (let i = 0; i < centerCount; i++){
-      makePiece(x, y, 0, Math.PI * 2, 100, small ? 220 : 340);
-    }
+  const panelL  = overlay.querySelector('.go__panel--l');
+  const panelR  = overlay.querySelector('.go__panel--r');
+  const lockEl  = overlay.querySelector('.go__lock');
+  const shackle = overlay.querySelector('.go__shackle');
+  const ease    = 'cubic-bezier(.77,0,.18,1)';
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    const cannonCount = small ? 30 : 55;
-    for (let i = 0; i < cannonCount; i++){
-      makePiece(0, h, rad(-80), rad(-20), 200, w * (small ? 0.7 : 0.85));
-      makePiece(w, h, rad(-160), rad(-100), 200, w * (small ? 0.7 : 0.85));
-    }
+  // Pre-hide hero content so it can be revealed gracefully when gates open
+  const photoWrap = document.querySelector('.hero__photo-wrap');
+  const eyebrow   = document.querySelector('.hero__eyebrow');
+  const word1     = document.querySelector('.hero__names .word:nth-child(1)');
+  const amp       = document.querySelector('.hero__amp');
+  const word2     = document.querySelector('.hero__names .word:nth-child(3)');
+  const date      = document.querySelector('.hero__date');
+
+  function hide(el){ if(el){ el.style.opacity='0'; el.style.transform='translateY(22px)'; el.style.animation='none'; } }
+  if(photoWrap){ photoWrap.style.opacity='0'; photoWrap.style.transform='translateY(60px)'; }
+  [eyebrow, word1, amp, word2, date].forEach(hide);
+
+  if (reduced){
+    overlay.remove();
+    document.body.classList.remove('gate-active');
+    if(photoWrap){ photoWrap.style.cssText=''; }
+    [eyebrow, word1, amp, word2, date].forEach(el => { if(el) el.style.cssText=''; });
+    return;
   }
 
-  setTimeout(burst, 200);
+  const reveal = (el, delay, dy='22px') => {
+    if(!el) return;
+    el.style.transform = `translateY(${dy})`;
+    el.animate(
+      [{ opacity:0, transform:`translateY(${dy})` }, { opacity:1, transform:'translateY(0)' }],
+      { duration:750, delay, easing:'cubic-bezier(.22,.61,.36,1)', fill:'forwards' }
+    );
+  };
+
+  // --- Phase 1: lock zooms in ---
+  lockEl.animate(
+    [{ transform:'translate(-50%,-50%) scale(1)' },
+     { transform:'translate(-50%,-50%) scale(2.2)' }],
+    { duration:550, easing:'cubic-bezier(.22,.61,.36,1)', fill:'forwards' }
+  );
+
+  // --- Phase 2: shackle lifts (lock opens) ---
+  shackle.animate(
+    [{ transform:'translateY(0)' }, { transform:'translateY(-7px)' }],
+    { duration:360, delay:220, easing:'ease-out', fill:'forwards' }
+  );
+
+  // --- Phase 3: lock fades out ---
+  lockEl.animate(
+    [{ opacity:1 }, { opacity:0 }],
+    { duration:220, delay:500, fill:'forwards' }
+  );
+
+  // --- Phase 4: panels slide apart ---
+  const slideOpts = { duration:800, delay:660, easing:ease, fill:'forwards' };
+  panelL.animate([{ transform:'translateX(0)' },{ transform:'translateX(-101%)' }], slideOpts);
+  const slideR = panelR.animate([{ transform:'translateX(0)' },{ transform:'translateX(101%)' }], slideOpts);
+
+  // --- Phase 5: hero slides up and text cascades in as panels open ---
+  if(photoWrap){
+    photoWrap.animate(
+      [{ opacity:0, transform:'translateY(60px)' }, { opacity:1, transform:'translateY(0)' }],
+      { duration:900, delay:700, easing:'cubic-bezier(.22,.61,.36,1)', fill:'forwards' }
+    );
+  }
+  reveal(eyebrow, 750);
+  reveal(word1, 880);
+  reveal(amp, 1000);
+  reveal(word2, 1080);
+  reveal(date, 1200);
+
+  slideR.onfinish = () => {
+    overlay.remove();
+    document.body.classList.remove('gate-active');
+  };
 })();
 
 // ===== Background music =====

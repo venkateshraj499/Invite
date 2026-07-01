@@ -25,17 +25,17 @@ body{
   background-image:url('../images/optimized/landing.jpg');
   background-size:cover;
   background-position:center 46%;
-  filter:brightness(0.62) blur(1.5px);
+  filter:brightness(0.72);
 }
 .gate__vignette{
   position:absolute; inset:0;
-  background:rgba(10,8,7,0.32);
+  background:rgba(10,8,7,0.18);
 }
 .gate__topscrim{
   position:absolute;
   top:0; left:0; right:0;
-  height:32%;
-  background:linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0));
+  height:38%;
+  background:linear-gradient(to bottom, rgba(0,0,0,0.72), rgba(0,0,0,0));
 }
 
 .gate__invite{
@@ -84,7 +84,6 @@ body{
   color:var(--ivory);
   margin-bottom:14px;
   filter:drop-shadow(0 1px 4px rgba(0,0,0,0.95)) drop-shadow(0 0 14px rgba(0,0,0,0.9));
-  animation:pulseCue 2.6s ease-in-out infinite 1.2s;
 }
 
 .gate__cue{
@@ -92,7 +91,6 @@ body{
   font-size:12px;
   letter-spacing:0.22em;
   text-transform:uppercase;
-  animation:pulseCue 2.6s ease-in-out infinite 1.2s;
 }
 
 .gate__date{
@@ -103,10 +101,7 @@ body{
   opacity:0.75;
 }
 
-@keyframes pulseCue{
-  0%, 100%{ opacity:0.55; }
-  50%{ opacity:1; }
-}
+
 
 .gate.is-unlocking .gate__content{
   transition:opacity 0.15s ease;
@@ -114,6 +109,5 @@ body{
 }
 
 @media (prefers-reduced-motion: reduce){
-  .gate__cue{ animation:none; }
   .gate__content{ animation:none; opacity:1; }
 }
