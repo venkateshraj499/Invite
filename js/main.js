@@ -1,26 +1,12 @@
-// ===== Gate overlay: lock opens → charcoal panels slide apart → hero revealed =====
+// ===== Gate overlay: triggered by gate.js via custom event (single-page, no navigation) =====
 (function gateAnimation(){
-  const overlay  = document.getElementById('gateOverlay');
+  const overlay = document.getElementById('gateOverlay');
   if (!overlay) return;
 
-  const fromGate = sessionStorage.getItem('just-unlocked') === '1';
-  sessionStorage.removeItem('just-unlocked');
-
-  if (!fromGate){
-    overlay.remove();
-    return;
-  }
-
-  document.body.classList.add('gate-active');
-
-  const panelL  = overlay.querySelector('.go__panel--l');
-  const panelR  = overlay.querySelector('.go__panel--r');
-  const lockEl  = overlay.querySelector('.go__lock');
-  const shackle = overlay.querySelector('.go__shackle');
   const ease    = 'cubic-bezier(.77,0,.18,1)';
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Pre-hide hero content so it can be revealed gracefully when gates open
+  // Pre-hide hero elements so they animate in gracefully when panels open
   const photoWrap = document.querySelector('.hero__photo-wrap');
   const eyebrow   = document.querySelector('.hero__eyebrow');
   const word1     = document.querySelector('.hero__names .word:nth-child(1)');
@@ -32,64 +18,71 @@
   if(photoWrap){ photoWrap.style.opacity='0'; photoWrap.style.transform='translateY(60px)'; }
   [eyebrow, word1, amp, word2, date].forEach(hide);
 
-  if (reduced){
-    overlay.remove();
-    document.body.classList.remove('gate-active');
-    if(photoWrap){ photoWrap.style.cssText=''; }
-    [eyebrow, word1, amp, word2, date].forEach(el => { if(el) el.style.cssText=''; });
-    return;
-  }
-
   const reveal = (el, delay, dy='22px') => {
     if(!el) return;
-    el.style.transform = `translateY(${dy})`;
     el.animate(
       [{ opacity:0, transform:`translateY(${dy})` }, { opacity:1, transform:'translateY(0)' }],
       { duration:750, delay, easing:'cubic-bezier(.22,.61,.36,1)', fill:'forwards' }
     );
   };
 
-  // --- Phase 1: lock zooms in ---
-  lockEl.animate(
-    [{ transform:'translate(-50%,-50%) scale(1)' },
-     { transform:'translate(-50%,-50%) scale(2.2)' }],
-    { duration:550, easing:'cubic-bezier(.22,.61,.36,1)', fill:'forwards' }
-  );
+  // Wait for gate.js to signal the silhouette has faded, then run panel animation
+  document.addEventListener('gate-silhouette-done', function runPanels(){
+    document.removeEventListener('gate-silhouette-done', runPanels);
+    document.body.classList.add('gate-active');
 
-  // --- Phase 2: shackle lifts (lock opens) ---
-  shackle.animate(
-    [{ transform:'translateY(0)' }, { transform:'translateY(-7px)' }],
-    { duration:360, delay:220, easing:'ease-out', fill:'forwards' }
-  );
+    if (reduced){
+      overlay.remove();
+      document.body.classList.remove('gate-active');
+      if(photoWrap){ photoWrap.style.cssText=''; }
+      [eyebrow, word1, amp, word2, date].forEach(el => { if(el) el.style.cssText=''; });
+      return;
+    }
 
-  // --- Phase 3: lock fades out ---
-  lockEl.animate(
-    [{ opacity:1 }, { opacity:0 }],
-    { duration:220, delay:500, fill:'forwards' }
-  );
+    const panelL = overlay.querySelector('.go__panel--l');
+    const panelR = overlay.querySelector('.go__panel--r');
+    const lockEl = overlay.querySelector('.go__lock');
+    const shackle = overlay.querySelector('.go__shackle');
 
-  // --- Phase 4: panels slide apart ---
-  const slideOpts = { duration:800, delay:660, easing:ease, fill:'forwards' };
-  panelL.animate([{ transform:'translateX(0)' },{ transform:'translateX(-101%)' }], slideOpts);
-  const slideR = panelR.animate([{ transform:'translateX(0)' },{ transform:'translateX(101%)' }], slideOpts);
-
-  // --- Phase 5: hero slides up and text cascades in as panels open ---
-  if(photoWrap){
-    photoWrap.animate(
-      [{ opacity:0, transform:'translateY(60px)' }, { opacity:1, transform:'translateY(0)' }],
-      { duration:900, delay:700, easing:'cubic-bezier(.22,.61,.36,1)', fill:'forwards' }
+    // Phase 1: lock zooms in
+    lockEl.animate(
+      [{ transform:'translate(-50%,-50%) scale(1)' },
+       { transform:'translate(-50%,-50%) scale(2.2)' }],
+      { duration:550, easing:'cubic-bezier(.22,.61,.36,1)', fill:'forwards' }
     );
-  }
-  reveal(eyebrow, 750);
-  reveal(word1, 880);
-  reveal(amp, 1000);
-  reveal(word2, 1080);
-  reveal(date, 1200);
+    // Phase 2: shackle lifts (lock opens)
+    shackle.animate(
+      [{ transform:'translateY(0)' }, { transform:'translateY(-7px)' }],
+      { duration:360, delay:220, easing:'ease-out', fill:'forwards' }
+    );
+    // Phase 3: lock fades
+    lockEl.animate(
+      [{ opacity:1 }, { opacity:0 }],
+      { duration:220, delay:500, fill:'forwards' }
+    );
+    // Phase 4: panels slide apart
+    const slideOpts = { duration:800, delay:660, easing:ease, fill:'forwards' };
+    panelL.animate([{ transform:'translateX(0)' },{ transform:'translateX(-101%)' }], slideOpts);
+    const slideR = panelR.animate([{ transform:'translateX(0)' },{ transform:'translateX(101%)' }], slideOpts);
 
-  slideR.onfinish = () => {
-    overlay.remove();
-    document.body.classList.remove('gate-active');
-  };
+    // Phase 5: hero rises and text cascades in as panels open
+    if(photoWrap){
+      photoWrap.animate(
+        [{ opacity:0, transform:'translateY(60px)' }, { opacity:1, transform:'translateY(0)' }],
+        { duration:900, delay:700, easing:'cubic-bezier(.22,.61,.36,1)', fill:'forwards' }
+      );
+    }
+    reveal(eyebrow, 750);
+    reveal(word1, 880);
+    reveal(amp, 1000);
+    reveal(word2, 1080);
+    reveal(date, 1200);
+
+    slideR.onfinish = () => {
+      overlay.remove();
+      document.body.classList.remove('gate-active');
+    };
+  });
 })();
 
 // ===== Background music =====
@@ -108,15 +101,9 @@
 
   audio.volume = 0.55;
 
-  // Try to autoplay with sound on page load. Browsers may block this since
-  // there's no preceding gesture on this exact page load — if so, fall back
-  // to muted autoplay (always allowed) so the toggle's next tap can unmute
-  // instantly instead of leaving the track fully stopped.
-  audio.play().then(sync).catch(() => {
-    audio.muted = true;
-    audio.play().catch(() => {});
-    sync();
-  });
+  // Music is started by gate.js inside the genuine click gesture (single-page,
+  // no navigation needed) — just initialise the UI state here.
+  sync();
 
   toggle.addEventListener('click', () => {
     if (audio.paused){

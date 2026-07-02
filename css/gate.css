@@ -3,22 +3,23 @@
   --charcoal:#262220;
   --bronze:#A9824C;
 }
-*{box-sizing:border-box; margin:0; padding:0;}
-html, body{ height:100%; overflow:hidden; }
-body{
-  font-family:'Inter',sans-serif;
-  background:#0c0a09;
-}
+/* gate.css is now loaded on the single-page index.html alongside style.css —
+   global resets and body styles live in style.css only */
 
 .gate{
-  position:relative;
-  width:100%;
-  height:100vh;
+  position:fixed;
+  inset:0;
+  z-index:300;
   display:flex;
   align-items:center;
   justify-content:center;
   overflow:hidden;
   cursor:pointer;
+  transition:opacity 0.35s ease;
+}
+.gate.is-fading{
+  opacity:0;
+  pointer-events:none;
 }
 .gate__photo{
   position:absolute; inset:0;
