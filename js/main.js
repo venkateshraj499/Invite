@@ -169,10 +169,12 @@
   targets.forEach((t) => io.observe(t));
 })();
 
-// ===== Pre-wedding story: stagger photos into view per filmstrip =====
+// ===== Pre-wedding story: stagger photos + arrow navigation =====
 (function storyFilmstrips(){
   const filmstrips = document.querySelectorAll('[data-filmstrip]');
   if (!filmstrips.length) return;
+
+  // Scroll-reveal stagger
   const io = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting){
@@ -182,11 +184,26 @@
     });
   }, { threshold: 0.25 });
   filmstrips.forEach((strip) => {
-    const photos = strip.querySelectorAll('.story__photo');
-    photos.forEach((photo, i) => {
-      photo.style.transitionDelay = `${(i % 5) * 100}ms`;
+    strip.querySelectorAll('.story__photo').forEach((photo, i) => {
+      photo.style.transitionDelay = `${(i % 6) * 90}ms`;
       io.observe(photo);
     });
+  });
+
+  // Arrow button navigation
+  document.querySelectorAll('.story__filmstrip-wrap').forEach((wrap) => {
+    const strip = wrap.querySelector('[data-filmstrip]');
+    const prev = wrap.querySelector('.story__arrow--prev');
+    const next = wrap.querySelector('.story__arrow--next');
+    if (!strip) return;
+
+    function scrollBy(dir){
+      const photoW = strip.querySelector('.story__photo')?.offsetWidth || 280;
+      strip.scrollBy({ left: dir * (photoW + 16), behavior: 'smooth' });
+    }
+
+    if (prev) prev.addEventListener('click', () => scrollBy(-1));
+    if (next) next.addEventListener('click', () => scrollBy(1));
   });
 })();
 

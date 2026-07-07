@@ -16,7 +16,7 @@ window.PHOTOS = {
   gallery: [
     { file: "gallery-01.jpg", alt: "Ring exchange — groom presenting the ring, bokeh background", span: "wide", focal: "50% 40%" },
     { file: "gallery-07.jpg", alt: "Back-to-back editorial portrait, both in full traditional attire", span: "tall", focal: "50% 10%" },
-    { file: "gallery-05.jpg", alt: "Formal engagement portrait, Brindha in full bridal jewellery", span: "square", focal: "50% 12%" },
+    { file: "gallery-05.jpg", alt: "Formal engagement portrait, Brindha in full bridal jewellery", span: "tall", focal: "50% 12%" },
     { file: "gallery-08.jpg", alt: "Couple seated on gold bench, warm indoor lighting", span: "square", focal: "50% 32%" },
     { file: "gallery-12.jpg", alt: "Couple at the engagement ceremony, floral arch backdrop", span: "wide", focal: "50% 30%" }
   ],
